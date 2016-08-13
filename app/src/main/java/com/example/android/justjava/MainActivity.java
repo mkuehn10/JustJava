@@ -13,19 +13,21 @@ import java.text.NumberFormat;
 public class MainActivity extends AppCompatActivity {
     private int numberOfCoffees = 0;
     private static final int PRICE_PER_COFFEE = 5;
+    private String priceMessage = "Total: ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         display(numberOfCoffees);
-        displayPrice(numberOfCoffees * PRICE_PER_COFFEE);
+        //displayPrice(numberOfCoffees * PRICE_PER_COFFEE);
+        //displayMessage(priceMessage);
     }
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        displayPrice(numberOfCoffees * PRICE_PER_COFFEE);
+        displayMessage(priceMessage);
     }
 
     public void incrementOrder(View view) {
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private void display(int number) {
         TextView quantityTextView = (TextView) findViewById(
                 R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
+        quantityTextView.setText("Item count: " + number);
     }
 
     /**
@@ -60,5 +62,13 @@ public class MainActivity extends AppCompatActivity {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
 
+    }
+
+    /**
+     * This method displays the given text on the screen.
+     */
+    private void displayMessage(String message) {
+        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        priceTextView.setText(message + NumberFormat.getCurrencyInstance().format(numberOfCoffees * PRICE_PER_COFFEE) + "\nThank you!");
     }
 }
